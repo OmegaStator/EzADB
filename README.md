@@ -18,7 +18,7 @@ You can obviously contribute to this project. Just pointing out some bugs and gi
 
 ## Installation
 
-no installation is needed, you only need Python with the Subprocess module installed
+no installation is needed, you only need Python with the Subprocess and Platform module installed
     
 ## Roadmap
 
