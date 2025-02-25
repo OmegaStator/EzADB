@@ -18,7 +18,7 @@ You can obviously contribute to this project. Just pointing out some bugs and gi
 
 ## Installation
 
-no installation is needed, you only need Python with the Subprocess module installed
+no installation is needed, you only need Python with the Subprocess and Platform module installed
     
 ## Roadmap
 
@@ -65,7 +65,7 @@ For support, please send issues request, if they are not bug related, please con
 ## Known issues
 
 - adb_package_list can only list system packages (to prevent other bugs, the selection feature has been removed)
-- Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py
+- ~~Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py~~ fixed since 24/02/25
 
 ## Licenses
 
