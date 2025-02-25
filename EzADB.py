@@ -78,9 +78,18 @@ def adb_list_packages():
         print("Failed to list packages, error:", result.stderr.decode())
 # start scrcpy
 def adb_scrcpy():
-    result = subprocess.run([scrcpy_path], capture_output=True)
+    with open('scrcpy_options.txt') as f:
+        options = f.read()
+    if options == "":
+        result= result = subprocess.run([scrcpy_path],  capture_output=True)
+    else:
+        result = subprocess.run([scrcpy_path, options],  capture_output=True)
     if result.returncode != 0:
         print("Failed to start SCRCPY, error:", result.stderr.decode())
+        input("Press Enter to continue")
+    else:
+        print("SCRCPY started successfully with the following options:", options)
+        input("Press Enter to continue")
 
 # main menu
 while True:
