@@ -1,6 +1,7 @@
 import subprocess
 import platform
 
+
 # define the variables that depends of the OS
 if platform.system() == "Windows":
     clearscreen = "cls"
@@ -18,6 +19,7 @@ else:
     print("Sorry, you are running", platform.system(), "which is not supported by ADB platform tools")
     exit(1)
 
+
 # start the adb server to allow connection to the device by wifi
 def adb_start():
         result = subprocess.run([ adb_path, "start-server"], capture_output=True)
@@ -25,6 +27,7 @@ def adb_start():
             print("Server started successfully")
         else:
             print("Server failed to start, error:", result.stderr.decode())
+
 # stop the adb server
 def adb_stop():
         result = subprocess.run([adb_path, "kill-server"], capture_output=True)
@@ -32,6 +35,7 @@ def adb_stop():
             print("Server stopped successfully")
         else:
             print("Server failed to stop, error:", result.stderr.decode())
+
 # list the devices connected to the adb server/ usb
 def adb_devices():
         result = subprocess.run([adb_path, "devices"], capture_output=True)
@@ -39,6 +43,7 @@ def adb_devices():
             print(result.stdout.decode())
         else:
             print("Failed to get devices, error:", result.stderr.decode())
+
 # installing single file apks
 def adb_install():
         apk_path = input("Enter the path of the apk file: ")
@@ -47,6 +52,7 @@ def adb_install():
             print("APK installed successfully")
         else:
             print("Failed to install APK, error:", result.stderr.decode())
+
 # installing splitted apks
 def adb_install_split():
         apk_base = input("Enter the path of the base APK file: ")
@@ -58,6 +64,7 @@ def adb_install_split():
             print("APK installed successfully")
         else:
             print("Failed to install APK, error:", result.stderr.decode())
+
 # uninstalling packages
 def adb_uninstall():
     package_name = input("Enter the package name of the app: ")
@@ -66,16 +73,31 @@ def adb_uninstall():
         print("App uninstalled successfully")
     else:
         print("Failed to uninstall app, error:", result.stderr.decode())
+
 # list all the packages installed on the device
-#==Broken for the moment, needs a fix==#
-def adb_list_packages():
-    print(f"\033[{"37;31"}m{"Warning :this feature is broken for the moment and can only print the system packages"}\033[0m")
-    input("Press Enter to see package list")
-    result = subprocess.run( adb_path, "shell pm list packages", capture_output=True)
-    if result.returncode == 0:
-        print(result.stdout.decode())
+def adb_list_packages(type):
+    if type=="system" or "s":
+        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-s"], capture_output=True)
+        if result.returncode == 0:
+            print(result.stdout.decode())
+        else:
+            print("Failed to list packages, error:", result.stderr.decode())
+    elif type=="user" or "u":
+        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
+        if result.returncode == 0:
+            print(result.stdout.decode())
+        else:
+            print("Failed to list packages, error:", result.stderr.decode())
+    elif type=="all" or "a":
+        result = subprocess.run([adb_path, "shell", "pm", "list", "packages"], capture_output=True)
+        if result.returncode == 0:
+            print(result.stdout.decode())
+        else:
+            print("Failed to list packages, error:", result.stderr.decode())
     else:
-        print("Failed to list packages, error:", result.stderr.decode())
+        print("Invalid choice, please try again")
+        return
+
 # start scrcpy
 def adb_scrcpy():
     with open('scrcpy_options.txt') as f:
@@ -90,6 +112,7 @@ def adb_scrcpy():
     else:
         print("SCRCPY started successfully with the following options:", options)
         input("Press Enter to continue")
+
 
 # main menu
 while True:
@@ -136,6 +159,8 @@ while True:
             print("Invalid choice, please try again")
     elif choice == 5:
         adb_list_packages()
+        choice = input("What package type do you want to list ? (system, user, all): ")
+        adb_list_packages(choice)
         input("Press Enter to continue")
     elif choice == 6:
         adb_scrcpy()
