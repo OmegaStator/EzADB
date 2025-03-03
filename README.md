@@ -48,7 +48,7 @@ and just run
 
 
 ```bash
-  EzADB.py
+  python3 EzADB.py
 ```
 ## Support
 
