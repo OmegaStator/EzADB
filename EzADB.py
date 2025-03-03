@@ -158,7 +158,6 @@ while True:
         else:
             print("Invalid choice, please try again")
     elif choice == 5:
-        adb_list_packages()
         choice = input("What package type do you want to list ? (system, user, all): ")
         adb_list_packages(choice)
         input("Press Enter to continue")

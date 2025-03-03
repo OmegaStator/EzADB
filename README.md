@@ -60,11 +60,11 @@ For support, please send issues request, if they are not bug related, please con
 - List connected ADB devices
 - Install single-Apk and splitted-apk apps
 - Uninstall packages
-- See all packages installed (currently broken, shows only system packages)
+- See all packages installed (currently broken, shows only system packages, might be because of my testing device)
 - Use [SCRCPY](https://github.com/Genymobile/scrcpy)
 ## Known issues
 
-- adb_package_list can only list system packages (to prevent other bugs, the selection feature has been removed)
+- adb_package_list can only list system packages (migth be because of my test device)
 - ~~Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py~~ fixed since 24/02/25
 
 ## Licenses
