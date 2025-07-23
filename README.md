@@ -36,7 +36,7 @@ no installation is needed, you only need Python with the Subprocess and Platform
 Because it's provided as ready-to-run, you can just clone the repo
 
 ```bash
-  git clone https://github.com/omegastator/ezadb
+  git clone https://github.com/OmegaStator/EzADB.git
 ```
 
 Go to the project directory
