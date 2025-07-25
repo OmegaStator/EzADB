@@ -67,7 +67,7 @@ For support, please send issues request, if they are not bug related, please con
 
 - adb_package_list can only list system packages (migth be because of my test device)
 - ~~Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py~~ fixed since 24/02/25
-- 25/07/25 : every command sends error 13 permission denied, system version of platform tools will be required
+- 25/07/25 : every command sends error 13 permission denied, system version of android-tools and scrcpy will be required
 
 ## Licenses
 
