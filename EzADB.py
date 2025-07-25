@@ -31,6 +31,7 @@ def adb_start():
             print("Server started successfully")
         else:
             print("Server failed to start, error:", result.stderr.decode())
+        input("Press enter to continue...")
 
 # stop the adb server
 def adb_stop():
@@ -39,6 +40,7 @@ def adb_stop():
             print("Server stopped successfully")
         else:
             print("Server failed to stop, error:", result.stderr.decode())
+        input("Press enter to continue...")
 
 # list the devices connected to the adb server/ usb
 def adb_devices():
@@ -47,6 +49,7 @@ def adb_devices():
             print(result.stdout.decode())
         else:
             print("Failed to get devices, error:", result.stderr.decode())
+        input("Press enter to continue...")
 
 # installing single file apks
 def adb_install():
@@ -56,6 +59,7 @@ def adb_install():
             print("APK installed successfully")
         else:
             print("Failed to install APK, error:", result.stderr.decode())
+        input("Press enter to continue...")
 
 # installing splitted apks
 def adb_install_split():
@@ -68,6 +72,7 @@ def adb_install_split():
             print("APK installed successfully")
         else:
             print("Failed to install APK, error:", result.stderr.decode())
+        input("Press enter to continue...")
 
 # uninstalling packages
 def adb_uninstall():
@@ -77,6 +82,7 @@ def adb_uninstall():
         print("App uninstalled successfully")
     else:
         print("Failed to uninstall app, error:", result.stderr.decode())
+    input("Press enter to continue...")
 
 # list all the packages installed on the device
 def adb_list_packages(type):
@@ -112,10 +118,9 @@ def adb_scrcpy():
         result = subprocess.run([scrcpy_path, options],  capture_output=True)
     if result.returncode != 0:
         print("Failed to start SCRCPY, error:", result.stderr.decode())
-        input("Press Enter to continue")
     else:
         print("SCRCPY started successfully with the following options:", options)
-        input("Press Enter to continue")
+    input("Press Enter to continue...")
 
 
 # main menu
@@ -141,17 +146,18 @@ while True:
     print("5. List app packages ")
     print("6. Start SCRCPY")
     print("7. Exit")
+
     choice = int(input("Enter your choice: "))
+    
     if choice == 1:
-        print("Starting ADB Server")
+        print("Starting ADB Server...")
         adb_start()
     elif choice == 2:
-        print("Stopping ADB Server")
+        print("Stopping ADB Server...")
         adb_stop()
     elif choice == 3:
-        print("fetching device list")
+        print("Fetching device list...")
         adb_devices()
-        input("Press Enter to continue")
     elif choice == 4:
         # apk installer and deleter undermenu
         subprocess.run([clearscreen], shell=True)
