@@ -58,7 +58,7 @@ For support, please send issues request, if they are not bug related, please con
 
 - Start and stop ADB server
 - List connected ADB devices
-- Install single-Apk and splitted-apk apps
+- Install single-file APK and splitted APK apps
 - Uninstall packages
 - See all packages installed (currently broken, shows only system packages, might be because of my testing device)
 - Use [SCRCPY](https://github.com/Genymobile/scrcpy)
