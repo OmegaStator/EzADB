@@ -20,7 +20,7 @@ You can obviously contribute to this project. Just pointing out some bugs and gi
 
 no installation is needed, you only need Python with the Subprocess and Platform module installed
     
-## Roadmap
+## (Maybe) Upcoming features
 
 - FastBoot support
 
@@ -28,7 +28,7 @@ no installation is needed, you only need Python with the Subprocess and Platform
 
 - Giving out more infos about the connection (SCRCPY feature)
 
-- A real interface
+- ~~A real interface~~ i suck at making interfaces
 
 
 ## Run Locally
