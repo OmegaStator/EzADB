@@ -3,18 +3,22 @@ import platform
 
 
 # define the variables that depends of the OS
+# Warning variable is made to trigger the warning for linux systems
 if platform.system() == "Windows":
     clearscreen = "cls"
     adb_path = "./windows/adb.exe"
     scrcpy_path = "./windows/scrcpy.exe"
+    warning = 0
 elif platform.system() == "Linux":
     clearscreen = "clear"
-    adb_path = "./linux/adb"
-    scrcpy_path = "./linux/scrcpy"
+    adb_path = "adb"
+    scrcpy_path = "scrcpy"
+    warning = 1
 elif platform.system() == "Darwin":
     clearscreen = "clear"
     adb_path = "./macos/adb"
     scrcpy_path = "./macos/scrcpy"
+    warning = 0
 else:
     print("Sorry, you are running", platform.system(), "which is not supported by ADB platform tools")
     exit(1)
@@ -117,6 +121,18 @@ def adb_scrcpy():
 # main menu
 while True:
     subprocess.run([clearscreen], shell=True)
+    if warning == 1:
+        print(" __          __     _____  _   _ _____ _   _  _____")
+        print("\ \        / /\   |  __ \| \ | |_   _| \ | |/ ____|")
+        print(" \ \  /\  / /  \  | |__| |  \| | | | |  \| | |  __ ")
+        print("  \ \/  \/ / /\ \ |  _  /| . ` | | | | . ` | | |_ |")
+        print("   \  /\  / ____ \| | \ \| |\  |_| |_| |\  | |__| |")
+        print("    \/  \/_/    \_\_|  \_\_| \_|_____|_| \_|\_____|")
+        print("Your system has been detected as a linux system.") 
+        print("Due to a bug, it will be required to have ADB and SCRCPY as system packages")
+        input("Press enter to continue...")
+        warning = 0
+        subprocess.run([clearscreen], shell=True)
     print("Welcome to EzADB")
     print("1. Start ADB Server")
     print("2. Stop ADB Server")
