@@ -4,8 +4,6 @@ No more command lines for ADB
 EzADB is the easiest tool to run ADB commands, say goodbye to the need of memorizing ADB commands, because now they are as simple to use as a command-line interface
 
 
-
-
 ## System requirements
 
 While this has been tested only on windows for the moment, this app supports windows, linux and macOS. You will also need python (obviously)
