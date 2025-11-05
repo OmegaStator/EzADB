@@ -8,20 +8,18 @@ if platform.system() == "Windows":
     clearscreen = "cls"
     adb_path = "./windows/adb.exe"
     scrcpy_path = "./windows/scrcpy.exe"
-    warning = 0
 elif platform.system() == "Linux":
     clearscreen = "clear"
-    adb_path = "adb"
-    scrcpy_path = "scrcpy"
-    warning = 1
+    adb_path = "./linux/adb"
+    scrcpy_path = "./linux/scrcpy"
 elif platform.system() == "Darwin":
     clearscreen = "clear"
     adb_path = "./macos/adb"
     scrcpy_path = "./macos/scrcpy"
-    warning = 0
 else:
     print("Sorry, you are running", platform.system(), "which is not supported by ADB platform tools")
     exit(1)
+
 
 
 # start the adb server to allow connection to the device by wifi
@@ -33,6 +31,7 @@ def adb_start():
             print("Server failed to start, error:", result.stderr.decode())
         input("Press enter to continue...")
 
+
 # stop the adb server
 def adb_stop():
         result = subprocess.run([adb_path, "kill-server"], capture_output=True)
@@ -41,6 +40,7 @@ def adb_stop():
         else:
             print("Server failed to stop, error:", result.stderr.decode())
         input("Press enter to continue...")
+
 
 # list the devices connected to the adb server/ usb
 def adb_devices():
@@ -51,6 +51,7 @@ def adb_devices():
             print("Failed to get devices, error:", result.stderr.decode())
         input("Press enter to continue...")
 
+
 # installing single file apks
 def adb_install():
         apk_path = input("Enter the path of the apk file: ")
@@ -60,6 +61,7 @@ def adb_install():
         else:
             print("Failed to install APK, error:", result.stderr.decode())
         input("Press enter to continue...")
+
 
 # installing splitted apks
 def adb_install_split():
@@ -74,6 +76,7 @@ def adb_install_split():
             print("Failed to install APK, error:", result.stderr.decode())
         input("Press enter to continue...")
 
+
 # uninstalling packages
 def adb_uninstall():
     package_name = input("Enter the package name of the app: ")
@@ -83,6 +86,7 @@ def adb_uninstall():
     else:
         print("Failed to uninstall app, error:", result.stderr.decode())
     input("Press enter to continue...")
+
 
 # list all the packages installed on the device
 def adb_list_packages(type):
@@ -108,6 +112,7 @@ def adb_list_packages(type):
         print("Invalid choice, please try again")
         return
 
+
 # start scrcpy
 def adb_scrcpy():
     with open('scrcpy_options.txt') as f:
@@ -123,21 +128,10 @@ def adb_scrcpy():
     input("Press Enter to continue...")
 
 
+
 # main menu
 while True:
     subprocess.run([clearscreen], shell=True)
-    if warning == 1:
-        print(" __          __     _____  _   _ _____ _   _  _____")
-        print("\ \        / /\   |  __ \| \ | |_   _| \ | |/ ____|")
-        print(" \ \  /\  / /  \  | |__| |  \| | | | |  \| | |  __ ")
-        print("  \ \/  \/ / /\ \ |  _  /| . ` | | | | . ` | | |_ |")
-        print("   \  /\  / ____ \| | \ \| |\  |_| |_| |\  | |__| |")
-        print("    \/  \/_/    \_\_|  \_\_| \_|_____|_| \_|\_____|")
-        print("Your system has been detected as a linux system.") 
-        print("Due to a bug, it will be required to have ADB and SCRCPY as system packages")
-        input("Press enter to continue...")
-        warning = 0
-        subprocess.run([clearscreen], shell=True)
     print("Welcome to EzADB")
     print("1. Start ADB Server")
     print("2. Stop ADB Server")

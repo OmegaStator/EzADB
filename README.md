@@ -1,5 +1,3 @@
-# I'm not working on this tool for the moment as it's bugged and not really stable, i might comeback to it later
-
 # Welcome EzADB
 
 EzADB is the easiest tool to run ADB commands, say goodbye to the need of memorizing ADB commands, because now they are as simple to use as a command-line interface
