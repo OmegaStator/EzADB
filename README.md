@@ -1,12 +1,16 @@
 # Welcome EzADB
 
-EzADB is the easiest tool to run ADB commands, say goodbye to the need of memorizing ADB commands, because now they are as simple to use as a command-line interface
+EzADB is the easiest tool to run ADB commands, say goodbye to the need of memorizing ADB commands, because now they are as simple to use as a text UI
 
 
 ## System requirements
 
-While this has been tested only on windows for the moment, this app supports windows, linux and macOS. You will also need python (obviously)
+Actual versions are tested on EndeavourOS (ArchLinux), there is no warranty that it will work on other systems (please report if they are not working correctly)
 
+|Requirements|Required|
+|---|---|
+|Python|>=3.0|
+|OS|Windows, Linux, MacOS |
 
 ## Contributing
 
@@ -15,7 +19,7 @@ You can obviously contribute to this project. Just pointing out some bugs and gi
 
 ## Installation
 
-no installation is needed, you only need Python with the Subprocess and Platform module installed
+No installation is needed, you only need Python installed
     
 ## (Maybe) Upcoming features
 
@@ -45,11 +49,11 @@ and just run
 
 
 ```bash
-  python3 EzADB.py
+  python EzADB.py
 ```
 ## Support
 
-For support, please send issues request, if they are not bug related, please contact me at xblade720.gamer@proton.me
+For support, please send issues request
 
 ## What can you do with this ?
 
@@ -62,9 +66,8 @@ For support, please send issues request, if they are not bug related, please con
 
 ## Known issues
 
-- adb_package_list can only list system packages (migth be because of my test device)
-- ~~Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py~~ fixed since 24/02/25
-- 25/07/25 : on linux, every command sends error 13 permission denied, system version of android-tools and scrcpy will be required
+- ~~Clearscreen is using the windows shell variant "cls", as a temporary fix, you can change "cls" to "clear" in EzADB.py~~ Fixed since 24/02/25
+- ~~25/07/25 : on linux, every command sends error 13 permission denied, system version of android-tools and scrcpy will be required~~ Fixed since 05/11/25
 
 ## Licenses
 
