@@ -83,23 +83,22 @@ def adb_uninstall():
 
 # list all the packages installed on the device
 def adb_list_packages(type):
-    if type=="system" or "s":       # System apps
+    # System apps
+    if type=="system" or "s":
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-s"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
-    elif type=="user" or "u":       # User apps
+    # User apps
+    elif type=="user" or "u":
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
-    elif type=="vendor" or "v":
-        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
-        if result.returncode == 0:
-            print(result.stdout.decode())
-    elif type=="all" or "a":        # All apps
+    # All apps
+    elif type=="all" or "a":
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
@@ -150,7 +149,7 @@ while True:
         print("Fetching device list...")
         adb_devices()
     elif choice == 4:
-        # apk installer and deleter undermenu
+        # apk installer and deleter submenu
         subprocess.run([clearscreen], shell=True)
         print("1. Install single-file APK")
         print("2. Install splitted APK")
