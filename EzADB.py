@@ -1,9 +1,8 @@
 import subprocess
-import platform
+import platform     # OS Detection mechanism
 
 
-# define the variables that depends of the OS
-# Warning variable is made to trigger the warning for linux systems
+## define the variables that depends of the OS
 if platform.system() == "Windows":
     clearscreen = "cls"
     adb_path = "./windows/adb.exe"
@@ -21,7 +20,7 @@ else:
     exit(1)
 
 
-
+## Functions
 # start the adb server to allow connection to the device by wifi
 def adb_start():
         result = subprocess.run([ adb_path, "start-server"], capture_output=True)
@@ -30,7 +29,6 @@ def adb_start():
         else:
             print("Server failed to start, error:", result.stderr.decode())
         input("Press enter to continue...")
-
 
 # stop the adb server
 def adb_stop():
@@ -41,7 +39,6 @@ def adb_stop():
             print("Server failed to stop, error:", result.stderr.decode())
         input("Press enter to continue...")
 
-
 # list the devices connected to the adb server/ usb
 def adb_devices():
         result = subprocess.run([adb_path, "devices"], capture_output=True)
@@ -50,7 +47,6 @@ def adb_devices():
         else:
             print("Failed to get devices, error:", result.stderr.decode())
         input("Press enter to continue...")
-
 
 # installing single file apks
 def adb_install():
@@ -61,7 +57,6 @@ def adb_install():
         else:
             print("Failed to install APK, error:", result.stderr.decode())
         input("Press enter to continue...")
-
 
 # installing splitted apks
 def adb_install_split():
@@ -76,7 +71,6 @@ def adb_install_split():
             print("Failed to install APK, error:", result.stderr.decode())
         input("Press enter to continue...")
 
-
 # uninstalling packages
 def adb_uninstall():
     package_name = input("Enter the package name of the app: ")
@@ -87,31 +81,35 @@ def adb_uninstall():
         print("Failed to uninstall app, error:", result.stderr.decode())
     input("Press enter to continue...")
 
-
 # list all the packages installed on the device
 def adb_list_packages(type):
-    if type=="system" or "s":
+    if type=="system" or "s":       # System apps
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-s"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
-    elif type=="user" or "u":
+    elif type=="user" or "u":       # User apps
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
-    elif type=="all" or "a":
+    elif type=="vendor" or "v":
+        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
+        if result.returncode == 0:
+            print(result.stdout.decode())
+    elif type=="all" or "a":        # All apps
         result = subprocess.run([adb_path, "shell", "pm", "list", "packages"], capture_output=True)
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
+        else:
+            print("Failed to list packages, error:", result.stderr.decode())
     else:
         print("Invalid choice, please try again")
         return
-
 
 # start scrcpy
 def adb_scrcpy():
@@ -128,8 +126,7 @@ def adb_scrcpy():
     input("Press Enter to continue...")
 
 
-
-# main menu
+## Main menu
 while True:
     subprocess.run([clearscreen], shell=True)
     print("Welcome to EzADB")
