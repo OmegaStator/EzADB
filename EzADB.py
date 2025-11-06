@@ -104,8 +104,6 @@ def adb_list_packages(type):
             print(result.stdout.decode())
         else:
             print("Failed to list packages, error:", result.stderr.decode())
-        else:
-            print("Failed to list packages, error:", result.stderr.decode())
     else:
         print("Invalid choice, please try again")
         return
