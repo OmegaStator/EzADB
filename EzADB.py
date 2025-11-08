@@ -1,6 +1,6 @@
 import subprocess
 import platform     # OS Detection mechanism
-
+from EzFastboot import *
 
 ## define the variables that depends of the OS
 if platform.system() == "Windows":
@@ -134,6 +134,7 @@ while True:
     print("5. List app packages ")
     print("6. Start SCRCPY")
     print("7. Exit")
+    print("8. Switch to EzFastboot")
 
     choice = int(input("Enter your choice: "))
     
