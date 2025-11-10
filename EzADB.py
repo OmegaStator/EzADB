@@ -133,8 +133,7 @@ def adb_menu():
     print("4. Install and uninstall tools")
     print("5. List app packages ")
     print("6. Start SCRCPY")
-    print("7. Exit")
-    print("8. Switch to EzFastboot")
+    print("7. Switch to EzFastboot")
 
     choice = int(input("Enter your choice: "))
     
@@ -165,7 +164,7 @@ def adb_menu():
             adb_uninstall()
             input("Press Enter to continue")
         elif choice == 4:
-            continue
+            return
         else:
             print("Invalid choice, please try again")
     elif choice == 5:
@@ -175,7 +174,7 @@ def adb_menu():
     elif choice == 6:
         adb_scrcpy()
     elif choice == 7:
-        break
+        fastboot_menu()
     else:
         print("Invalid choice, please try again")
         input("Press enter continue...")
