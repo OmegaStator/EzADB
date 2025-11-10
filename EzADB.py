@@ -103,7 +103,7 @@ def adb_list_packages(type):
         if result.returncode == 0:
             print(result.stdout.decode())
         else:
-            print("Failed to list packages, error:", result.stderr.decode())
+            return("Failed to list packages, error:", result.stderr.decode())
     else:
         print("Invalid choice, please try again")
         return
@@ -123,8 +123,8 @@ def adb_scrcpy():
     input("Press Enter to continue...")
 
 
-## Main menu
-while True:
+## ADB menu
+def adb_menu():
     subprocess.run([clearscreen], shell=True)
     print("Welcome to EzADB")
     print("1. Start ADB Server")
@@ -178,3 +178,22 @@ while True:
         break
     else:
         print("Invalid choice, please try again")
+        input("Press enter continue...")
+
+# Fastboot menu
+def fastboot_menu():
+    fastboot_init()
+    print("1. List fastboot devices")
+    print("2. Switch to EzADB")
+    choice = input("Enter your choice: ")
+    if input == 1:
+            fastboot_devices()
+    elif input ==2:
+        return
+    else:
+        print("Invalid choice, please try again")
+    input("Press enter to continue")
+
+# Main loop
+while True:
+    adb_menu()
