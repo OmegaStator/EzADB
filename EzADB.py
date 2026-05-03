@@ -85,7 +85,7 @@ def adb_menu():
 def fastboot_menu():
     print("D. List fastboot devices")
     print("E. Switch to EzADB")
-    fbchoice = input("Enter your choice: ")
+    fbchoice = int(input("Enter your choice: "))
     if fbchoice == 1:
             fb.devices(fastboot_path)
     elif fbchoice == 2:
