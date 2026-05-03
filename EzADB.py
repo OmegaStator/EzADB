@@ -35,7 +35,8 @@ def adb_menu():
     print("4. Install and uninstall tools")
     print("5. List app packages ")
     print("6. Start SCRCPY")
-    print("7. Switch to EzFastboot")
+    print("7. Reboot to a specific mode")
+    print("8. Switch to EzFastboot")
 
     choice = int(input("Enter your choice: "))
     
@@ -76,6 +77,24 @@ def adb_menu():
     elif choice == 6:
         adb.scrcpy(scrcpy_path)
     elif choice == 7:
+        print("What mode do you want your phone to reboot into")
+        print("1. Reboot to system (normal mode)")
+        print("2. Reboot to system (Safe mode)")
+        print("3. Reboot to recovery")
+        print("4. Reboot to fastboot / download mode")
+        rbchoice = int(input("What mode do you want to reboot to : "))
+        if rbchoice == 1:
+            adb.reboot(adb_path, "")
+        elif rbchoice == 2:
+            adb.reboot(adb_path, "safe")
+        elif rbchoice == 3:
+            adb.reboot(adb_path, "recovery")
+        elif rbchoice == 4:
+            adb.reboot(adb_path, 'bootloader')
+        else:
+            print("Invalid choice")
+            input("Press enter continue...")
+    elif choice == 8:
         fastboot_menu()
     else:
         print("Invalid choice, please try again")
@@ -87,7 +106,7 @@ def fastboot_menu():
     print("2. Switch to EzADB")
     fbchoice = int(input("Enter your choice: "))
     if fbchoice == 1:
-            fb.devices(fastboot_path)
+        fb.devices(fastboot_path)
     elif fbchoice == 2:
         return
     else:

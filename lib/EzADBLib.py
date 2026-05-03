@@ -100,5 +100,14 @@ def scrcpy(scrcpy_path):
         print("SCRCPY started successfully with the following options:", options)
     input("Press Enter to continue...")
 
+# reboot
+def reboot(adb_path, reboot_mode):
+    result = subprocess.run([ adb_path, "reboot", reboot_mode], capture_output=True)
+    if result.returncode == 0:
+        print("Device rebooted sucessfully")
+    else:
+        print("Server failed to start, error:", result.stderr.decode())
+    input("Press enter to continue...")
+
 print("HEY YOU,YES YOU !")
 print("This file is a library for EzADB, if you want to use it, please run EzADB")

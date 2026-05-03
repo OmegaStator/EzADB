@@ -62,6 +62,7 @@ For support, please send issues request
 - Install single-file APK and splitted APK apps
 - Uninstall packages
 - See all packages installed (currently broken, shows only system packages, might be because of my testing device)
+- Reboot to system, safe mode, recovery, fastboot
 - Use [SCRCPY](https://github.com/Genymobile/scrcpy)
 
 ## Known issues
