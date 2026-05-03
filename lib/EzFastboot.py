@@ -1,15 +1,6 @@
-import platform
 import subprocess
 
-def fastboot_init():
-    if platform.system() == "Windows":
-        fastboot_path = "./windows/fastboot"
-    elif platform.system() == "Linux":
-        fastboot_path = "./linux/fastboot"
-    elif platform.system() == "Darwin":
-        fastboot_path = "./macos/fastboot"
-
-def fastboot_devices():
+def devices(fastboot_path):
     result = subprocess.run([fastboot_path, "devices"], capture_output=True)
     if result.returncode == 0:
         return(result.stdout.decode())

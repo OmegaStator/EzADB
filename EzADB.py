@@ -1,126 +1,28 @@
 import subprocess
 import platform     # OS Detection mechanism
-from EzFastboot import *
+from lib import EzADBLib as adb
+from lib import EzFastboot as fb
+
 
 ## define the variables that depends of the OS
 if platform.system() == "Windows":
     clearscreen = "cls"
     adb_path = "./windows/adb.exe"
     scrcpy_path = "./windows/scrcpy.exe"
+    fastboot_path = "./windows/fastboot"
 elif platform.system() == "Linux":
     clearscreen = "clear"
     adb_path = "./linux/adb"
     scrcpy_path = "./linux/scrcpy"
+    fastboot_path = "./linux/fastboot"
 elif platform.system() == "Darwin":
     clearscreen = "clear"
     adb_path = "./macos/adb"
     scrcpy_path = "./macos/scrcpy"
+    fastboot_path = "./macos/fastboot"
 else:
     print("Sorry, you are running", platform.system(), "which is not supported by ADB platform tools")
     exit(1)
-
-
-## Functions
-# start the adb server to allow connection to the device by wifi
-def adb_start():
-        result = subprocess.run([ adb_path, "start-server"], capture_output=True)
-        if result.returncode == 0:
-            print("Server started successfully")
-        else:
-            print("Server failed to start, error:", result.stderr.decode())
-        input("Press enter to continue...")
-
-# stop the adb server
-def adb_stop():
-        result = subprocess.run([adb_path, "kill-server"], capture_output=True)
-        if result.returncode == 0:
-            print("Server stopped successfully")
-        else:
-            print("Server failed to stop, error:", result.stderr.decode())
-        input("Press enter to continue...")
-
-# list the devices connected to the adb server/ usb
-def adb_devices():
-        result = subprocess.run([adb_path, "devices"], capture_output=True)
-        if result.returncode == 0:
-            print(result.stdout.decode())
-        else:
-            print("Failed to get devices, error:", result.stderr.decode())
-        input("Press enter to continue...")
-
-# installing single file apks
-def adb_install():
-        apk_path = input("Enter the path of the apk file: ")
-        result = subprocess.run([adb_path, "install", apk_path], capture_output=True)
-        if result.returncode == 0:
-            print("APK installed successfully")
-        else:
-            print("Failed to install APK, error:", result.stderr.decode())
-        input("Press enter to continue...")
-
-# installing splitted apks
-def adb_install_split():
-        apk_base = input("Enter the path of the base APK file: ")
-        apk_split_language = input("Enter the path of the language split APK file: ")
-        apk_split_arch = input("Enter the path of the architecture split APK file: ")
-        apk_split_dpi = input("Enter the path of the DPI split APK file: ")
-        result = subprocess.run([adb_path, "install-multiple", apk_base, apk_split_arch, apk_split_language, apk_split_dpi], capture_output=True)
-        if result.returncode == 0:
-            print("APK installed successfully")
-        else:
-            print("Failed to install APK, error:", result.stderr.decode())
-        input("Press enter to continue...")
-
-# uninstalling packages
-def adb_uninstall():
-    package_name = input("Enter the package name of the app: ")
-    result = subprocess.run([adb_path, "uninstall", package_name], capture_output=True) # add some way to check if it's a system app ?
-    if result.returncode == 0:
-        print("App uninstalled successfully")
-    else:
-        print("Failed to uninstall app, error:", result.stderr.decode())
-    input("Press enter to continue...")
-
-# list all the packages installed on the device
-def adb_list_packages(type):
-    # System apps
-    if type=="system" or "s":
-        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-s"], capture_output=True)
-        if result.returncode == 0:
-            print(result.stdout.decode())
-        else:
-            print("Failed to list packages, error:", result.stderr.decode())
-    # User apps
-    elif type=="user" or "u":
-        result = subprocess.run([adb_path, "shell", "pm", "list", "packages", "-3"], capture_output=True)
-        if result.returncode == 0:
-            print(result.stdout.decode())
-        else:
-            print("Failed to list packages, error:", result.stderr.decode())
-    # All apps
-    elif type=="all" or "a":
-        result = subprocess.run([adb_path, "shell", "pm", "list", "packages"], capture_output=True)
-        if result.returncode == 0:
-            print(result.stdout.decode())
-        else:
-            return("Failed to list packages, error:", result.stderr.decode())
-    else:
-        print("Invalid choice, please try again")
-        return
-
-# start scrcpy
-def adb_scrcpy():
-    with open('scrcpy_options.txt') as f:
-        options = f.read()
-    if options == "":
-        result= result = subprocess.run([scrcpy_path],  capture_output=True)
-    else:
-        result = subprocess.run([scrcpy_path, options],  capture_output=True)
-    if result.returncode != 0:
-        print("Failed to start SCRCPY, error:", result.stderr.decode())
-    else:
-        print("SCRCPY started successfully with the following options:", options)
-    input("Press Enter to continue...")
 
 
 ## ADB menu
@@ -139,13 +41,13 @@ def adb_menu():
     
     if choice == "a" or "A":
         print("Starting ADB Server...")
-        adb_start()
+        adb.start(adb_path)
     elif choice == "k" or "K":
         print("Stopping ADB Server...")
-        adb_stop()
+        adb.stop(adb_path)
     elif choice == "d" or "D":
         print("Fetching device list...")
-        adb_devices()
+        adb.devices(adb_path)
     elif choice == "i" or "I":
         # apk installer and deleter submenu
         subprocess.run([clearscreen], shell=True)
@@ -154,14 +56,14 @@ def adb_menu():
         print("U. Uninstall an app")
         print("E. Return to main menu")
         choice = int(input("Enter your choice: "))
-            adb_install()
         if choice == "i" or "I":
+            adb.install(adb_path)
             input("Press Enter to continue")
         elif choice == "s" or "S":
             adb.install_split(adb_path)
             input("Press Enter to continue")
-            adb_uninstall()
         elif choice == "u" or "U":
+            adb.uninstall(adb_path)
             input("Press Enter to continue")
         elif choice == "e" or "E":
             return
@@ -169,10 +71,10 @@ def adb_menu():
             print("Invalid choice, please try again")
     elif choice == "l" or "L" :
         choice = input("What package type do you want to list ? (system, user, all): ")
-        adb_list_packages(choice)
+        adb.list_packages(choice)
         input("Press Enter to continue")
-        adb_scrcpy()
     elif choice == "s" or "S":
+        adb.scrcpy(scrcpy_path)
     elif choice == "f" or "F":
         fastboot_menu()
     else:
@@ -181,16 +83,15 @@ def adb_menu():
 
 # Fastboot menu
 def fastboot_menu():
-    fastboot_init()
-    choice = input("Enter your choice: ")
-            fastboot_devices()
     print("D. List fastboot devices")
     print("E. Switch to EzADB")
+    fbchoice = input("Enter your choice: ")
     if fbchoice == "d" or "D":
+            fb.devices(fastboot_path)
     elif fbchoice == "e" or "E":
         return
     else:
-        print("Invalid choice, please try again")
+        print(fbchoice, choice)
     input("Press enter to continue")
 
 # Main loop
