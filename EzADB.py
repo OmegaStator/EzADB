@@ -29,53 +29,53 @@ else:
 def adb_menu():
     subprocess.run([clearscreen], shell=True)
     print("Welcome to EzADB")
-    print("A. Start ADB Server")
-    print("K. Stop ADB Server")
-    print("D. List Devices")
-    print("I. Install and uninstall tools")
-    print("L. List app packages ")
-    print("S. Start SCRCPY")
-    print("F. Switch to EzFastboot")
+    print("1. Start ADB Server")
+    print("2. Stop ADB Server")
+    print("3. List Devices")
+    print("4. Install and uninstall tools")
+    print("5. List app packages ")
+    print("6. Start SCRCPY")
+    print("7. Switch to EzFastboot")
 
     choice = int(input("Enter your choice: "))
     
-    if choice == "a" or "A":
+    if choice == 1:
         print("Starting ADB Server...")
         adb.start(adb_path)
-    elif choice == "k" or "K":
+    elif choice == 2:
         print("Stopping ADB Server...")
         adb.stop(adb_path)
-    elif choice == "d" or "D":
+    elif choice == 3:
         print("Fetching device list...")
         adb.devices(adb_path)
-    elif choice == "i" or "I":
+    elif choice == 4:
         # apk installer and deleter submenu
         subprocess.run([clearscreen], shell=True)
-        print("I. Install single-file APK")
-        print("S. Install splitted APK")
-        print("U. Uninstall an app")
-        print("E. Return to main menu")
+        print("1. Install single-file APK")
+        print("2. Install splitted APK")
+        print("3. Uninstall an app")
+        print("4. Return to main menu")
         choice = int(input("Enter your choice: "))
-        if choice == "i" or "I":
+        if choice == 1:
             adb.install(adb_path)
             input("Press Enter to continue")
-        elif choice == "s" or "S":
+        elif choice == 2:
             adb.install_split(adb_path)
             input("Press Enter to continue")
-        elif choice == "u" or "U":
+        elif choice == 3:
             adb.uninstall(adb_path)
             input("Press Enter to continue")
-        elif choice == "e" or "E":
+        elif choice == 4:
             return
         else:
             print("Invalid choice, please try again")
-    elif choice == "l" or "L" :
+    elif choice == 5 :
         choice = input("What package type do you want to list ? (system, user, all): ")
         adb.list_packages(choice)
         input("Press Enter to continue")
-    elif choice == "s" or "S":
+    elif choice == 6:
         adb.scrcpy(scrcpy_path)
-    elif choice == "f" or "F":
+    elif choice == 7:
         fastboot_menu()
     else:
         print("Invalid choice, please try again")
@@ -86,9 +86,9 @@ def fastboot_menu():
     print("D. List fastboot devices")
     print("E. Switch to EzADB")
     fbchoice = input("Enter your choice: ")
-    if fbchoice == "d" or "D":
+    if fbchoice == 1:
             fb.devices(fastboot_path)
-    elif fbchoice == "e" or "E":
+    elif fbchoice == 2:
         return
     else:
         print(fbchoice, choice)
