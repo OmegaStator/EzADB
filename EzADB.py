@@ -103,11 +103,22 @@ def adb_menu():
 # Fastboot menu
 def fastboot_menu():
     print("1. List fastboot devices")
-    print("2. Switch to EzADB")
+    print("2. Unlock Bootloader")
+    print("3. Relock Bootloader")
+    print('4. Flash a partition')
+    print("5. Switch to EzADB")
     fbchoice = int(input("Enter your choice: "))
     if fbchoice == 1:
         fb.devices(fastboot_path)
     elif fbchoice == 2:
+        fb.oem_unlock(fastboot_path)
+    elif fbchoice == 3:
+        fb.oem_lock(fastboot_path)
+    elif fbchoice == 4:
+        partition = input("What partition do you want to flash (name needs to be in lower case) : ")
+        imgfile = input("Please enter the path to the file you want to flash (Is a .img in most cases, might be a .efi for custom bootloaders)")
+        fb.flash(fastboot_path, partition)
+    elif fbchoice == 5:
         return
     else:
         print(fbchoice, choice)
