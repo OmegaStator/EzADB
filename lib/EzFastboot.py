@@ -8,5 +8,3 @@ def devices(fastboot_path):
         print("Failed to get devices, error:", result.stderr.decode())
     input("Press enter to continue...")
 
-print("HEY YOU,YES YOU !")
-print("This file is a library for EzADB, if you want to use it, please run EzADB and select 7. Switch to EzFastboot")
