@@ -106,5 +106,5 @@ def reboot(adb_path, reboot_mode):
     if result.returncode == 0:
         print("Device rebooted sucessfully")
     else:
-        print("Server failed to start, error:", result.stderr.decode())
+        print("Device failed to reboot, error:", result.stderr.decode())
     input("Press enter to continue...")
